@@ -37,7 +37,7 @@ Getting started with the Invoice Generator is a breeze. Just follow these simple
 
 1. **Clone this Repository**: Start by cloning this repository to your local machine. You can do this with the following command:
     ```bash
-    git clone https://github.com/UtsavSoftrefineTech/Invoice-Generator.git
+    git clone https://github.com/MuthurajaMERN/invoice-mern.git
     ```
 
 2. **Install Dependencies**: Once you have the repository on your machine, navigate to the project directory and install the required dependencies. You can use npm or yarn for this step, depending on your preference:
@@ -59,7 +59,7 @@ Getting started with the Invoice Generator is a breeze. Just follow these simple
 5. **Generate Invoices with Ease**: Take full advantage of the application's dynamic features and real-time calculation updates to generate professional invoices with ease.
 
 ## Demo
-Explore the live demo of the Invoice Generator: [QuickInvoiceBuilder](https://quickinvoicebuilder.netlify.app/)
+Explore the live demo of the Invoice Generator: 
 
 ## Contributing
 
@@ -73,11 +73,6 @@ If you're interested in contributing to this project, please follow these guidel
 
 ## Contact
 
-Have questions, ideas, or feedback? Reach out to us:
-
-- Email: desaiutsav26@gmail.com
-- Linkedin: [@utsavdesai26](https://www.linkedin.com/in/utsavdesai26/)
-- Medium: [@utsavdesai26](https://medium.com/@utsavdesai26)
 
 ## Acknowledgments
 
