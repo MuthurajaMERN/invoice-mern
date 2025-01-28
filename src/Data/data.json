@@ -64,7 +64,7 @@
         { "value": "HRK", "label": "HRK (kn)" },
         { "value": "HTG", "label": "HTG" },
         { "value": "HUF", "label": "HUF (Ft)" },
-        { "value": "IDR", "label": "IDR (Rp)" },
+        { "value": "IDR", "label": "IDR (Rp)" },         
         { "value": "ILS", "label": "ILS (₪)" },
         { "value": "INR", "label": "INR (Rs)" },
         { "value": "IQD", "label": "IQD" },
@@ -279,15 +279,15 @@
           {
             "text": "Amount Paid",
             "property": "",
-            "remove": false,
+            "remove": true,
             "editable": true,
             "swap": true
           },
           {
             "text": "Balance Due",
             "property": "",
-            "remove": false,
-            "editable": false
+            "remove": true,
+            "editable": true
           }
         ]
       }

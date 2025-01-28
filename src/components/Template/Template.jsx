@@ -9,12 +9,12 @@ function Template() {
 
   const {currencyOptions, typeOption} = data;
 
-  const [selectedCurrency, setSelectedCurrency] = useState("AED");
-  const [selectedCurrencyIcon, setSelectedCurrencyIcon] = useState("د.إ");
+  const [selectedCurrency, setSelectedCurrency] = useState("INR");
+  const [selectedCurrencyIcon, setSelectedCurrencyIcon] = useState("Rs");
   const [selectedTypeValue, setSelectedTypeValue] = useState("Invoice");
   const [isTextFilled, setIsTextFilled] = useState(false);
 
-  // table data
+  
   const [tableData, setTableData] = useState(() => {
     const storedData = localStorage.getItem("tableData");
     return storedData
@@ -29,7 +29,7 @@ function Template() {
   });
 
   // Currency Select
-  const handleSelectChange = ({ target: { value } }) => {
+  const handleSelectedCurrency = ({ target: { value } }) => {
     const parts = value.split(" ");
     const currency = parts[0];
     const currencyIcon = parts.length > 1 ? parts[1].replace("(", "").replace(")", "") : currency;
@@ -105,12 +105,17 @@ function Template() {
   // Add Logo Image
   const handleLogoAdd = (event) => {
     const selectedLogo = event.target.files[0];
+    console.log("selectedLogo",selectedLogo)
+
     if (selectedLogo) {
       const reader = new FileReader();
       reader.addEventListener("load", () => {
         const updatedDetails = { ...details };
         updatedDetails.logo = reader.result;
+        console.log("logo result",updatedDetails)
         setDetails(updatedDetails);
+        console.log("logo updatedetails",updatedDetails.logo)
+        console.log("logo details ",details)
       });
       reader.readAsDataURL(selectedLogo);
     }
@@ -130,6 +135,7 @@ function Template() {
   // Open File Input
   const openFileInput = () => {
     logoInputRef.current.click();
+    console.log("open file input",logoInputRef.current)
   };
 
   // Handling Text Input
@@ -183,6 +189,7 @@ function Template() {
     calculatedDiscount = calculation[1].remove ? 0 : calculatedDiscount;
     calculatedTax = calculation[2].remove ? 0 : calculatedTax;
     shipping = calculation[3].remove ? 0 : shipping;
+    // amountPaid = amountPaid[7].remove ? 0 :balanceDue;
 
     let total = subTotal - calculatedDiscount + calculatedTax + shipping
     let balanceDue = total - amountPaid;
@@ -301,7 +308,7 @@ function Template() {
       const imgData = canvas.toDataURL("image/png");
 
       const pdfWidth = 210; // A4 page width in mm
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      const pdfHeight =297;
 
       const pdf = new jsPDF({
         orientation: "portrait",
@@ -311,18 +318,46 @@ function Template() {
 
       pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
 
-      pdf.save("invoice.pdf");
+
+pdf.save("invoice.pdf")
+console.log("save file developer name",savePDF)
+
+      // pdf.save("invoice.pdf");
     });
 
     setIsModelOpen(false);
   };
 
+// const invoiceDownloadAsPdf = () => {
+//   const invoiceTemplate = document.querySelector(".invoice-template");
 
-  const invoiceDownloadAsXML = () => {
-    // write code for XML Format
-    alert("The only missing feature is download as XML Format. So if you are interested in contributing to this project, read through the readme file.")
-    setIsModelOpen(false)
-  }
+//   const pdf = new jsPDF({
+//     orientation: "portrait",
+//     unit: "mm",
+//     format: "a4",  // Use A4 format for standard PDF page
+//   });
+
+//   // Add the HTML content to the PDF
+//   pdf.html(invoiceTemplate, {
+//     margin: [10, 10, 10, 10],  // Set margins (top, right, bottom, left)
+//     callback: function (pdf) {
+//       // After the content is added, save the PDF
+//       pdf.save("invoice.pdf");
+//     },
+//     x: 10,  // Set the x position (left margin)
+//     y: 10,  // Set the y position (top margin)
+//   });
+
+//   setIsModelOpen(false);
+// };
+
+
+
+  // const invoiceDownloadAsXML = () => {
+  //   // write code for XML Format
+  //   alert("The only missing feature is download as XML Format. So if you are interested in contributing to this project, read through the readme file.")
+  //   setIsModelOpen(false)
+  // }
 
   useEffect(() => {
     const updatedDetails = calculateTotalAmount();
@@ -346,7 +381,7 @@ function Template() {
     // Store data in localStorage
     localStorage.setItem("details", JSON.stringify(details));
     localStorage.setItem("tableData", JSON.stringify(tableData));
-  }, [details, tableData]);
+  }, [details,tableData]);
 
   return (
     <>
@@ -354,7 +389,7 @@ function Template() {
         isModelOpen={isModelOpen}
         closeModel={closeModel}
         invoiceDownloadAsPdf={invoiceDownloadAsPdf}
-        invoiceDownloadAsXML={invoiceDownloadAsXML}
+        // invoiceDownloadAsXML={invoiceDownloadAsXML}
       />
       <div className={`h-min w-[95%] md:w-11/12 rounded-sm my-8 mx-auto flex flex-col gap-2 lg:flex-row ${isModelOpen ? "blur-sm" : "blur-none"}`}>
         <div className="invoice-template h-fit p-8 rounded-sm bg-templatebg lg:w-[80%]">
@@ -667,7 +702,7 @@ function Template() {
               className="p-1 rounded border border-templateoption focus:outline focus:outline-templatehistory focus:border-none"
               id="currency"
               value={selectedCurrency.value}
-              onChange={handleSelectChange}
+              onChange={handleSelectedCurrency}
             >
               {currencyOptions.map((currency) => (
                 <option key={currency.label} value={currency.label}>
